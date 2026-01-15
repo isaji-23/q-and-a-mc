@@ -4,7 +4,7 @@
 
 > [!IMPORTANT]
 > **URL de la aplicación web:**  
-> *(Añadir aquí la URL pública donde se encuentra desplegada la aplicación para probar el sistema)*
+> *[https://q-and-a-mc.vercel.app/](https://q-and-a-mc.vercel.app/)*
 
 ---
 
