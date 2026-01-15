@@ -1,22 +1,47 @@
+/* =========================
+   Minecraft Q&A - Clean Blocky UI
+   - High contrast
+   - Simple buttons
+   - Gradient background
+   - Keeps rectangular/pixel vibe
+   ========================= */
+
 :root {
+    /* Pixel / shape */
     --px: 4px;
     --radius: 14px;
-    --text: #f3f4f6;
-    --shadow: rgba(0, 0, 0, 0.45);
-    --panel: rgba(18, 24, 18, 0.88);
 
-    --dirt1: #6b4f2a;
-    --dirt2: #5a3f21;
-    --dirt3: #8b6a3a;
-    --stone1: #7f8790;
-    --stone2: #6b727a;
-    --stone3: #9aa2ab;
+    /* Core colors */
+    --text: #f9fafb;
+    --muted: rgba(255, 255, 255, 0.75);
+    --outline: #0b0f0b;
 
+    /* Panels */
+    --panel: rgba(10, 14, 10, 0.92);
+    --panel-soft: rgba(0, 0, 0, 0.35);
+
+    /* Accents */
     --green: #3fb950;
+
+    /* Buttons (flat, blocky) */
+    --btn-stone: #9ca3af;
+    --btn-dirt: #8b6a3a;
+
+    /* Inputs */
+    --input-bg: rgba(0, 0, 0, 0.35);
+    --input-border: rgba(255, 255, 255, 0.12);
+
+    /* Shadows */
+    --shadow: rgba(0, 0, 0, 0.55);
 }
 
 * {
     box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
 }
 
 body {
@@ -25,19 +50,14 @@ body {
     font-family: "VT323", monospace;
     color: var(--text);
 
-    background: radial-gradient(
-            1200px 700px at 50% 10%,
-            rgba(255, 255, 255, 0.08),
-            transparent 60%
-        ),
-        linear-gradient(#2f7d32 0 0) top/100% 70px no-repeat,
-        repeating-linear-gradient(
-            45deg,
-            #5d3f21 0 10px,
-            #6b4f2a 10px 20px,
-            #4c341b 20px 30px,
-            #7a5a31 30px 40px
-        );
+    /* Clean Minecraft-inspired gradient: sky -> grass */
+    background: linear-gradient(
+        to bottom,
+        #5fa8d3 0%,
+        #5fa8d3 28%,
+        #4aa35b 28%,
+        #2f6b35 100%
+    );
 
     display: flex;
     align-items: center;
@@ -45,156 +65,231 @@ body {
     padding: 24px;
 }
 
+/* App wrapper */
 .app {
-    width: min(920px, 100%);
+    width: 100%;
+    max-width: 980px;
 }
 
-.pixel {
-    box-shadow: 0 14px 30px var(--shadow), 0 0 0 var(--px) #0b0f0b,
-        0 0 0 calc(var(--px) * 2) rgba(255, 255, 255, 0.08);
-}
-
+/* Main chat card */
 .chat {
+    width: 100%;
     background: var(--panel);
     border-radius: var(--radius);
-    display: grid;
-    grid-template-rows: auto auto 1fr auto;
-    min-height: min(72svh, 680px);
     overflow: hidden;
 }
 
+/* Pixel outline + strong shadow */
+.pixel {
+    box-shadow: 0 0 0 var(--px) var(--outline), 0 20px 40px var(--shadow);
+}
+
+/* =========================
+   Header
+   ========================= */
 .header {
-    background: rgba(0, 0, 0, 0.28);
-    padding: 14px 16px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    padding: 14px 16px;
+    background: var(--panel-soft);
+    box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.25);
 }
 
 .brand {
     display: flex;
-    gap: 10px;
     align-items: center;
+    gap: 12px;
+    min-width: 0;
 }
 
 .brand-badge {
-    width: 34px;
-    height: 34px;
-    background: linear-gradient(
-            135deg,
-            rgba(255, 255, 255, 0.18),
-            transparent 60%
-        ),
-        linear-gradient(0deg, var(--dirt1), var(--dirt2));
-    box-shadow: 0 0 0 var(--px) #0b0f0b,
-        inset 0 0 0 var(--px) rgba(255, 255, 255, 0.08);
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #6ee7b7, #22c55e);
+    box-shadow: 0 0 0 var(--px) var(--outline);
+    flex: 0 0 auto;
+}
+
+.brand-text {
+    min-width: 0;
 }
 
 .brand-text h1 {
     margin: 0;
-    font-size: 28px;
+    font-size: 34px;
+    line-height: 1;
+    letter-spacing: 0.5px;
 }
 
 .brand-text small {
+    display: block;
+    margin-top: 2px;
     font-size: 18px;
-    opacity: 0.85;
+    color: var(--muted);
 }
 
+/* =========================
+   Top bar (status + actions)
+   ========================= */
 .chat-top {
-    background: rgba(0, 0, 0, 0.22);
-    padding: 12px 14px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    padding: 10px 16px;
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.25);
 }
 
 .status {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    font-size: 18px;
+    color: var(--muted);
 }
 
 .dot {
     width: 12px;
     height: 12px;
     background: var(--green);
-    box-shadow: 0 0 0 var(--px) #0b0f0b;
+    box-shadow: 0 0 0 var(--px) var(--outline);
 }
 
-.chat-body {
-    padding: 14px;
-    overflow-y: auto;
-}
-
-.chat-input {
-    background: rgba(0, 0, 0, 0.22);
-    padding: 12px;
+.actions {
     display: flex;
     gap: 10px;
 }
 
-.field {
-    flex: 1;
-    background: rgba(0, 0, 0, 0.18);
-    padding: 10px;
-    box-shadow: inset 0 0 0 var(--px) #0b0f0b;
-}
-
-.field input {
-    width: 100%;
-    background: none;
-    border: 0;
-    outline: 0;
-    color: var(--text);
-    font-size: 22px;
-    font-family: inherit;
-}
-
+/* =========================
+   Buttons (simple + blocky)
+   ========================= */
 .btn {
     font-family: inherit;
     font-size: 22px;
     border: 0;
     cursor: pointer;
-    padding: 10px 14px;
-    box-shadow: 0 0 0 var(--px) #0b0f0b,
-        inset 0 0 0 var(--px) rgba(255, 255, 255, 0.14);
+    padding: 10px 16px;
+    color: #111;
+
+    background: var(--btn-stone);
+    box-shadow: 0 0 0 var(--px) var(--outline),
+        inset 0 -4px 0 rgba(0, 0, 0, 0.25);
+
+    transition: transform 0.05s ease, filter 0.05s ease;
+    user-select: none;
 }
 
-.btn-dirt {
-    background: repeating-linear-gradient(
-        45deg,
-        var(--dirt1) 0 10px,
-        var(--dirt2) 10px 20px,
-        var(--dirt3) 20px 30px
-    );
+.btn:hover {
+    filter: brightness(1.05);
+}
+
+.btn:active {
+    transform: translateY(2px);
+    filter: brightness(0.95);
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 var(--px) var(--outline),
+        0 0 0 calc(var(--px) * 2) rgba(110, 231, 183, 0.35),
+        inset 0 -4px 0 rgba(0, 0, 0, 0.25);
 }
 
 .btn-stone {
-    background: repeating-linear-gradient(
-        45deg,
-        var(--stone1) 0 10px,
-        var(--stone2) 10px 20px,
-        var(--stone3) 20px 30px
-    );
+    background: var(--btn-stone);
+    color: #111;
 }
 
-@media (max-width: 560px) {
-    .chat-input {
-        flex-direction: column;
-    }
-
-    .btn {
-        width: 100%;
-    }
+.btn-dirt {
+    background: var(--btn-dirt);
+    color: #1b1208;
 }
 
+/* Help button hook (for mobile sizing) */
+.btn-help {
+    font-size: 20px;
+    padding: 8px 12px;
+}
+
+/* =========================
+   Chat body
+   ========================= */
 .chat-body {
+    height: min(58vh, 520px);
+    padding: 16px;
+    overflow: auto;
+
     display: flex;
     flex-direction: column;
     gap: 12px;
+
+    background: rgba(0, 0, 0, 0.1);
 }
 
-/* Row alignment */
+/* Scrollbar (simple, high contrast) */
+.chat-body::-webkit-scrollbar {
+    width: 12px;
+}
+.chat-body::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.25);
+}
+.chat-body::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.18);
+    box-shadow: inset 0 0 0 var(--px) rgba(0, 0, 0, 0.25);
+}
+.chat-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* =========================
+   Input area
+   ========================= */
+.chat-input {
+    display: flex;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--panel-soft);
+    box-shadow: inset 0 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.field {
+    flex: 1;
+    min-width: 0;
+}
+
+#chatInput {
+    width: 100%;
+    font-family: inherit;
+    font-size: 22px;
+    color: var(--text);
+
+    padding: 12px 12px;
+    border: 0;
+    background: var(--input-bg);
+    box-shadow: 0 0 0 var(--px) var(--outline),
+        inset 0 0 0 var(--px) var(--input-border);
+}
+
+#chatInput::placeholder {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+#chatInput:focus {
+    outline: none;
+    box-shadow: 0 0 0 var(--px) var(--outline),
+        0 0 0 calc(var(--px) * 2) rgba(110, 231, 183, 0.28),
+        inset 0 0 0 var(--px) var(--input-border);
+}
+
+/* =========================
+   Messages (Step 2)
+   - Clean wood/parchment bubbles
+   ========================= */
 .msg-row {
     display: flex;
     gap: 10px;
@@ -209,7 +304,6 @@ body {
     justify-content: flex-start;
 }
 
-/* Bubble base (wood sign / parchment vibes) */
 .bubble {
     max-width: min(680px, 92%);
     padding: 12px 14px;
@@ -218,37 +312,32 @@ body {
     color: #151515;
     position: relative;
 
-    /* pixel outline */
-    box-shadow: 0 0 0 var(--px) #0b0f0b,
+    box-shadow: 0 0 0 var(--px) var(--outline),
         inset 0 0 0 var(--px) rgba(255, 255, 255, 0.14);
+
+    animation: pop 0.12s ease-out;
 }
 
-/* Wooden sign bubble (bot) */
+/* Wooden sign bubble (bot) — still MC-ish but cleaner */
 .bubble.bot {
     background: linear-gradient(
             135deg,
-            rgba(255, 255, 255, 0.18),
+            rgba(255, 255, 255, 0.16),
             transparent 55%
         ),
-        repeating-linear-gradient(
-            90deg,
-            #b98143 0 10px,
-            #a8743c 10px 20px,
-            #c48b4d 20px 30px
-        );
+        linear-gradient(90deg, #c58a4f 0%, #b77d45 100%);
 }
 
 /* Parchment bubble (user) */
 .bubble.user {
     background: linear-gradient(
             135deg,
-            rgba(255, 255, 255, 0.22),
+            rgba(255, 255, 255, 0.18),
             transparent 50%
         ),
-        repeating-linear-gradient(0deg, #f0e2b6 0 12px, #e9d9a4 12px 24px);
+        linear-gradient(0deg, #f1e3b8 0%, #eadba6 100%);
 }
 
-/* Small label */
 .meta {
     font-size: 16px;
     opacity: 0.9;
@@ -268,14 +357,14 @@ body {
     gap: 10px;
 }
 
-/* Torch icon (CSS pixel-ish) */
+/* Torch icon */
 .icon-torch {
     width: 18px;
     height: 18px;
     position: relative;
     flex: 0 0 auto;
-    box-shadow: 0 0 0 var(--px) #0b0f0b;
-    background: #7a4b1a; /* handle */
+    box-shadow: 0 0 0 var(--px) var(--outline);
+    background: #7a4b1a;
 }
 .icon-torch::before {
     content: "";
@@ -284,8 +373,9 @@ body {
     top: -10px;
     width: 10px;
     height: 10px;
-    background: #ffcf4a; /* flame */
-    box-shadow: 0 0 0 var(--px) #0b0f0b, 0 -6px 14px rgba(255, 210, 70, 0.55);
+    background: #ffcf4a;
+    box-shadow: 0 0 0 var(--px) var(--outline),
+        0 -6px 14px rgba(255, 210, 70, 0.55);
 }
 
 /* Dots animation */
@@ -297,7 +387,7 @@ body {
     width: 8px;
     height: 8px;
     background: rgba(0, 0, 0, 0.55);
-    box-shadow: 0 0 0 var(--px) #0b0f0b;
+    box-shadow: 0 0 0 var(--px) var(--outline);
     animation: bounce 1s infinite ease-in-out;
 }
 .dots span:nth-child(2) {
@@ -320,10 +410,6 @@ body {
     }
 }
 
-/* Subtle pop-in for messages */
-.bubble {
-    animation: pop 0.12s ease-out;
-}
 @keyframes pop {
     from {
         transform: translateY(4px);
@@ -335,21 +421,21 @@ body {
     }
 }
 
-/* Mobile sizing */
-@media (max-width: 560px) {
-    .bubble {
-        font-size: 20px;
+/* =========================
+   Responsive
+   ========================= */
+@media (max-width: 680px) {
+    .chat-body {
+        height: min(62vh, 520px);
+        padding: 14px;
     }
 }
 
-/* Desktop: tamaño normal */
-.btn-help {
-    font-size: 20px;
-    padding: 8px 12px;
-}
-
-/* Mobile adjustments */
 @media (max-width: 560px) {
+    body {
+        padding: 14px;
+    }
+
     .header {
         flex-direction: column;
         align-items: flex-start;
@@ -364,5 +450,14 @@ body {
         align-self: flex-start;
         font-size: 16px;
         padding: 6px 10px;
+    }
+
+    .btn {
+        font-size: 20px;
+        padding: 9px 14px;
+    }
+
+    .bubble {
+        font-size: 20px;
     }
 }
