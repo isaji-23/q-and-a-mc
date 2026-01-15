@@ -104,16 +104,11 @@ function setUserText(v) {
 async function askAzureQnA(question) {
     const res = await fetch("/api/ask", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question }),
     });
 
-    if (!res.ok) {
-        throw new Error("API error");
-    }
-
+    if (!res.ok) throw new Error("API error");
     return res.json();
 }
 
