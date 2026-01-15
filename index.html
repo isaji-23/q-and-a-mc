@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Minecraft Q&A Chat</title>
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<main class="app">
+		<section class="chat pixel" role="application" aria-label="Minecraft style chatbot">
+
+			<header class="header">
+				<div class="brand">
+					<div class="brand-badge" aria-hidden="true"></div>
+					<div class="brand-text">
+						<h1>Minecraft Q&A</h1>
+						<small>Beginner Survival Assistant</small>
+					</div>
+				</div>
+
+				<button class="btn btn-stone btn-help" type="button" id="helpBtn">Help</button>
+			</header>
+
+			<div class="chat-top">
+				<div class="status">
+					<div class="dot"></div>
+					<span id="statusText">Connected</span>
+				</div>
+
+				<div class="actions">
+					<button class="btn btn-stone" type="button" id="clearBtn">Clear</button>
+				</div>
+			</div>
+
+			<div class="chat-body" id="chatBody" aria-label="Chat messages">
+				<!-- Mensajes se insertan aquí -->
+			</div>
+
+			<footer class="chat-input">
+				<div class="field">
+					<input id="chatInput" type="text"
+						placeholder="Type your question… (e.g., How do I survive the first night?)"
+						aria-label="Chat input" autocomplete="off" />
+				</div>
+				<button class="btn btn-dirt" type="button" id="sendBtn">Send</button>
+			</footer>
+
+		</section>
+	</main>
+
+	<!-- Click sound (opcional). Puedes cambiar el src luego. -->
+	<audio id="clickSound" preload="auto">
+		<!-- Si no pones src, no pasa nada: el JS lo ignora -->
+	</audio>
+
+	<script src="script.js"></script>
+</body>
+
+</html>
